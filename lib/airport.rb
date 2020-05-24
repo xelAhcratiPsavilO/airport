@@ -10,7 +10,8 @@ class Airport
   end
 
   def land(plane)
-    fail 'Deniend landing; airport full' if full?
+    raise 'Denied landing; stormy weather' if stormy?
+    raise 'Deniend landing; airport full' if full?
     @planes << plane
   end
 
