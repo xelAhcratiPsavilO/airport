@@ -10,12 +10,23 @@ class Airport
   end
 
   def land(plane)
-    fail 'Deniend landing; airport full' if @planes.count >= @capacity
+    fail 'Deniend landing; airport full' if full?
     @planes << plane
   end
 
   def take_off(plane)
+    raise 'Denied takeoff; stormy weather' if stormy?
 
+  end
+
+  private
+
+  def full?
+    @planes.count >= @capacity
+  end
+
+  def stormy?
+    rand(4).zero?
   end
 
 end
