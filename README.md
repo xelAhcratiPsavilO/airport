@@ -42,12 +42,15 @@ git clone git@github.com:xelAhcratiPsavilO/airport.git
 irb
 ```
 ### Running
-- Load the  class (similarly for any other class):
+- Load the Plane class (similarly for any other class):
 ```bash
+> require './lib/plane'
 => true
 ```
-- Create a new  instance (similarly for any other class):
+- Create a new Airport instance (similarly for any other class):
 ```bash
+> station = Airport.new
+=> #<Airport:0x00007f8aee176d50>
 ```
 
 ### Testing
@@ -57,6 +60,9 @@ rspec
 ```
 - Expected output:
 ```bash
+....
+Finished in 0.00723 seconds (files took 0.12964 seconds to load)
+4 examples, 0 failures
 ```
 
 ## Domain Model
