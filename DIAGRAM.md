@@ -7,5 +7,7 @@ CLASS          <--       METHOD      --> OUTPUT
 Airport        <--   land(a Plane)   --> error (if out of capacity)
 Airport        <--   land(a Plane)   --> [a Plane]
 Airport        <-- take_off(a Plane) --> [a Plane]
+Airport        <--      capacity     --> given capacity (if given)
+Airport        <--      capacity     --> default capacity
 ```
 Back to [readme](README.md).
