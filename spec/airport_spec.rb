@@ -22,6 +22,12 @@ describe Airport do
     it 'instructs a plane to take off' do
       expect(airport).to respond_to(:take_off).with(1).argument
     end
+    it 'confirms departure' do
+      allow(airport).to receive(:stormy?).and_return false
+      airport.land(plane)
+      expect(airport).to receive :confirm_departure_of
+      airport.take_off(plane)
+    end
     context 'when stormy' do
       it 'take off raises an error' do
         allow(airport).to receive(:stormy?).and_return true

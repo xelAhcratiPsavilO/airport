@@ -16,7 +16,8 @@ class Airport
 
   def take_off(plane)
     raise 'Denied takeoff; stormy weather' if stormy?
-
+    @planes -= [plane]
+    confirm_departure_of(plane)
   end
 
   private
@@ -27,6 +28,10 @@ class Airport
 
   def stormy?
     rand(4).zero?
+  end
+
+  def confirm_departure_of(plane)
+    return "Confirmed departure of #{plane}." unless @planes.include? plane
   end
 
 end
