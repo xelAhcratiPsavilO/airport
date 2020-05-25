@@ -13,15 +13,15 @@ class Airport
   def land(plane)
     raise 'Denied landing; stormy weather' if stormy?
     raise 'Deniend landing; airport full' if full?
+    plane.land
     @planes << plane
   end
 
   def take_off(plane)
     raise 'Denied takeoff; stormy weather' if stormy?
     raise 'Plane cannot take off; plane not at this airport' unless at_airport?(plane)
-    @planes -= [plane]
     confirm_departure_of(plane)
-    return plane
+    plane
   end
 
   private
@@ -39,6 +39,7 @@ class Airport
   end
 
   def confirm_departure_of(plane)
+    @planes -= [plane]
     return 'Confirmed departure of plane' unless at_airport? plane
   end
 

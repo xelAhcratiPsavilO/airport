@@ -16,6 +16,10 @@ describe 'User Stories' do
     it 'airport instructs a plane to land' do
       expect { airport.land(plane) }.not_to raise_error
     end
+    it 'non-flying planes cannot land' do
+      airport.land plane
+      expect { plane.land }.to raise_error 'Plane cannot land; plane already landed'
+    end
     # As an air traffic controller
     # So I can get passengers on the way to their destination
     # I want to instruct a plane to take off from an airport and confirm that it is no longer in the airport
@@ -61,7 +65,8 @@ describe 'User Stories' do
       # I want to prevent landing when the airport is full
       it 'landings are not allowed' do
         20.times do
-          small_airport.land(plane)
+          another_plane = Plane.new
+          small_airport.land(another_plane)
         end
         expect { small_airport.land(plane) }.to raise_error 'Deniend landing; airport full'
       end
