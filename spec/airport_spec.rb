@@ -1,13 +1,14 @@
 require 'airport'
 
 describe Airport do
-  subject(:airport) { described_class.new() }
+  subject(:airport) { described_class.new(weather_forecast) }
   let(:plane) { double :plane }
+  let(:weather_forecast) { double :weather_forecast }
 
   describe '#land' do
     context 'when sunny' do
       before do
-        allow(airport).to receive(:stormy?).and_return false
+        allow(weather_forecast).to receive(:stormy?).and_return false
       end
       it 'instructs a plane to land' do
         expect(airport).to respond_to(:land).with(1).argument
@@ -23,7 +24,7 @@ describe Airport do
     end
     context 'when stormy' do
       before do
-        allow(airport).to receive(:stormy?).and_return true
+        allow(weather_forecast).to receive(:stormy?).and_return true
       end
       it 'raises an error' do
         expect { airport.land(plane) }.to raise_error 'Denied landing; stormy weather'
@@ -51,7 +52,7 @@ describe Airport do
     end
     context 'when stormy' do
       before do
-        allow(airport).to receive(:stormy?).and_return true
+        allow(weather_forecast).to receive(:stormy?).and_return true
       end
       it 'raises an error' do
         expect { airport.take_off(plane) }.to raise_error 'Denied takeoff; stormy weather'
@@ -65,7 +66,7 @@ describe Airport do
     end
     it 'can be overridden' do
       random_capacity = Random.rand(100)
-      airport = described_class.new random_capacity
+      airport = described_class.new random_capacity, weather_forecast
       expect(airport.capacity).to eq random_capacity
     end
   end

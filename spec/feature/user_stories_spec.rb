@@ -1,6 +1,7 @@
 describe 'User Stories' do
-  let (:airport) { Airport.new }
-  let (:small_airport) { Airport.new(20) }
+  let (:airport) { Airport.new(weather_forecast) }
+  let (:small_airport) { Airport.new(20, weather_forecast) }
+  let(:weather_forecast) { WeatherForecast.new }
   let (:plane) { Plane.new }
   context 'when sunny' do
     before do
@@ -45,7 +46,7 @@ describe 'User Stories' do
     end
     it 'default capacity of the airport can be overridden' do
       random_capacity = Random.rand(100)
-      airport = Airport.new(random_capacity)
+      airport = Airport.new(random_capacity, weather_forecast)
       expect(airport.capacity).to eq random_capacity
     end
   end

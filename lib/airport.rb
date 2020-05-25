@@ -4,8 +4,9 @@ class Airport
 
   attr_reader :capacity
 
-  def initialize(capacity = DEFAULT_CAPACITY)
+  def initialize(capacity = DEFAULT_CAPACITY, weather_forecast)
     @capacity = capacity
+    @weather_forecast = weather_forecast
     @planes = []
   end
 
@@ -28,7 +29,7 @@ class Airport
   end
 
   def stormy?
-    rand(4).zero?
+    @weather_forecast.stormy?
   end
 
   def confirm_departure_of(plane)
