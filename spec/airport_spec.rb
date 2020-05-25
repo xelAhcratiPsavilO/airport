@@ -6,7 +6,7 @@ describe Airport do
   let(:weather_forecast) { double :weather_forecast }
 
   describe '#land' do
-    context 'when sunny' do
+    context 'when non-stormy' do
       before do
         allow(weather_forecast).to receive(:stormy?).and_return false
       end
@@ -33,9 +33,9 @@ describe Airport do
   end
 
   describe '#take_off' do
-    context 'when sunny' do
+    context 'when non-stormy' do
       before do
-        allow(airport).to receive(:stormy?).and_return false
+        allow(weather_forecast).to receive(:stormy?).and_return false
       end
       it 'instructs a plane to take off' do
         expect(airport).to respond_to(:take_off).with(1).argument
@@ -47,7 +47,14 @@ describe Airport do
       end
       it 'sends a confirmation of departure' do
         airport.land(plane)
-        expect(airport.take_off(plane)).to eq("Confirmed departure of #{plane}.")
+        expect(airport.take_off(plane)).to eq("Confirmed departure of #{plane}")
+      end
+      context 'when plane not at this airport' do
+        it 'raises an error' do
+          small_airport = described_class.new(20, weather_forecast)
+          small_airport.land(plane)
+          expect { airport.take_off(plane) }.to raise_error "#{plane} cannot take off; #{plane} not at this airport"
+        end
       end
     end
     context 'when stormy' do
