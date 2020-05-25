@@ -17,5 +17,6 @@ WeatherForecast <--      stormy?      --> true (25% of times)
 WeatherForecast <--      stormy?      --> false (75% of times)
 
 Plane           <--      take_off     --> error (if flying)
+Plane           <--      airport      --> error (if flying)
 ```
 Back to [readme](README.md).

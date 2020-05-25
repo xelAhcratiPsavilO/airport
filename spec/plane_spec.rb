@@ -11,4 +11,11 @@ describe Plane do
     end
   end
 
+  describe '#airport' do
+    it { is_expected.to respond_to :airport  }
+    it 'raises an error' do
+      expect { plane.airport }.to raise_error 'Plane cannot be at airport; plane already flying'
+    end
+  end
+
 end

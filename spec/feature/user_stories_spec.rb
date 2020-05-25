@@ -36,6 +36,16 @@ describe 'User Stories' do
       small_airport.land(plane)
       expect { airport.take_off(plane) }.to raise_error 'Plane cannot take off; plane not at this airport'
     end
+    it 'flying planes cannot take off' do
+      airport.land plane
+      flying_plane = airport.take_off(plane)
+      expect { flying_plane.take_off }.to raise_error 'Plane cannot take off; plane already flying'
+    end
+    it 'flying planes cannot be at an airport' do
+      airport.land plane
+      flying_plane = airport.take_off(plane)
+      expect { flying_plane.airport }.to raise_error 'Plane cannot be at airport; plane already flying'
+    end
     # As the system designer
     # So that the software can be used for many different airports
     # I would like a default airport capacity that can be overridden as appropriate
@@ -44,11 +54,6 @@ describe 'User Stories' do
     end
     it 'airport has a default capacity which can be overridden' do
       expect(airport_with_rand_capacity.capacity).to eq rand_capacity
-    end
-    it 'flying planes cannot take off' do
-      airport.land plane
-      flying_plane = airport.take_off(plane)
-      expect { flying_plane.take_off }.to raise_error 'Plane cannot take off; plane already flying'
     end
     context 'when full' do
       # As an air traffic controller
