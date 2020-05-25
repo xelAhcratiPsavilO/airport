@@ -12,6 +12,7 @@ Object based system to control the flow of planes at an airport. The planes can 
 * [Author](#author)
 
 ## Code Quality
+[![Maintainability](https://api.codeclimate.com/v1/badges/b5b444e81eb53b992c46/maintainability)](https://codeclimate.com/github/xelAhcratiPsavilO/airport/maintainability)
 
 ## Technologies
 - Main technology
