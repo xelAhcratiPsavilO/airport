@@ -78,6 +78,7 @@ Based on [client's requirements](USER_STORIES.md).
 Objects-Messages [diagram](DIAGRAM.md).
 
 ## Principles and takeaways
+Symbols are preferred over strings literal since the latter creates a new string object in memory every time is interpreted, symbols are a more efficient solution. Stubbing methods by allowing Kernel to output certain values makes possible to test randomness. Explicitly defining a name subject, whenever possible, reduces code smell. Before-block statements allow to group functionality based on conditions. Context and describe create subsets of scope organized by behavior which helps maintaining the readability of the logs. Avoiding vacuous tests ensures that all tests are functional. 
 
 ## Analysis
 
