@@ -14,7 +14,7 @@ class Airport
     raise 'Denied landing; stormy weather' if stormy?
     raise 'Deniend landing; airport full' if full?
     plane.land(self)
-    @planes << plane
+    add_plane(plane)
   end
 
   def take_off(plane)
@@ -26,20 +26,30 @@ class Airport
 
   private
 
+  attr_reader :weather_forecast
+
   def full?
-    @planes.count >= @capacity
+    planes.count >= @capacity
+  end
+
+  def add_plane(plane)
+    planes << plane
+  end
+
+  def remove_plane(plane)
+    @planes -= [plane]
   end
 
   def stormy?
-    @weather_forecast.stormy?
+    weather_forecast.stormy?
   end
 
   def at_airport?(plane)
-    @planes.include? plane
+    planes.include? plane
   end
 
   def confirm_departure_of(plane)
-    @planes -= [plane]
+    remove_plane(plane)
     plane.take_off
     return 'Confirmed departure of plane' unless at_airport? plane
   end
