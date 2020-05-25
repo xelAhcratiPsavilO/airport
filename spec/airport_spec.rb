@@ -45,15 +45,15 @@ describe Airport do
         expect(airport).to receive :confirm_departure_of
         airport.take_off(plane)
       end
-      it 'sends a confirmation of departure' do
+      it 'returns the plane that took off' do
         airport.land(plane)
-        expect(airport.take_off(plane)).to eq("Confirmed departure of #{plane}")
+        expect(airport.take_off(plane)).to eq plane
       end
       context 'when plane not at this airport' do
         it 'raises an error' do
           small_airport = described_class.new(20, weather_forecast)
           small_airport.land(plane)
-          expect { airport.take_off(plane) }.to raise_error "#{plane} cannot take off; #{plane} not at this airport"
+          expect { airport.take_off(plane) }.to raise_error 'Plane cannot take off; plane not at this airport'
         end
       end
     end

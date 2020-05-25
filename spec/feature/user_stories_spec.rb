@@ -3,6 +3,9 @@ describe 'User Stories' do
   let (:small_airport) { Airport.new(20, weather_forecast) }
   let(:weather_forecast) { WeatherForecast.new }
   let (:plane) { Plane.new }
+  rand_capacity = Random.rand(100)
+  let (:airport_with_rand_capacity) { Airport.new(rand_capacity, weather_forecast) }
+
   context 'when non-stormy' do
     before do
       allow(weather_forecast).to receive(:stormy?).and_return false
@@ -25,13 +28,13 @@ describe 'User Stories' do
       expect(airport).to receive :confirm_departure_of
       airport.take_off(plane)
     end
-    it 'airport sends confirmation of plane departure' do
+    it 'airport returns the plane that took off' do
       airport.land(plane)
-      expect(airport.take_off(plane)).to eq("Confirmed departure of #{plane}")
+      expect(airport.take_off(plane)).to eq plane
     end
     it 'planes take off only from airports they are at' do
       small_airport.land(plane)
-      expect { airport.take_off(plane) }.to raise_error "#{plane} cannot take off; #{plane} not at this airport"
+      expect { airport.take_off(plane) }.to raise_error 'Plane cannot take off; plane not at this airport'
     end
     # As the system designer
     # So that the software can be used for many different airports
@@ -40,9 +43,12 @@ describe 'User Stories' do
       expect(airport.capacity).to eq Airport::DEFAULT_CAPACITY
     end
     it 'airport has a default capacity which can be overridden' do
-      random_capacity = Random.rand(100)
-      airport = Airport.new(random_capacity, weather_forecast)
-      expect(airport.capacity).to eq random_capacity
+      expect(airport_with_rand_capacity.capacity).to eq rand_capacity
+    end
+    it 'flying planes cannot take off' do
+      airport.land plane
+      flying_plane = airport.take_off(plane)
+      expect { flying_plane.take_off }.to raise_error 'Plane cannot take off; plane already flying'
     end
     context 'when full' do
       # As an air traffic controller
