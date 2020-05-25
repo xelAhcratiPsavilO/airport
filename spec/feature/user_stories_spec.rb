@@ -18,7 +18,11 @@ describe 'User Stories' do
     end
     it 'non-flying planes cannot land' do
       airport.land plane
-      expect { plane.land }.to raise_error 'Plane cannot land; plane already landed'
+      expect { plane.land(airport) }.to raise_error 'Plane cannot land; plane already landed'
+    end
+    it 'non-flying must be in an airport' do
+      airport.land plane
+      expect(plane.airport).to eq airport
     end
     # As an air traffic controller
     # So I can get passengers on the way to their destination
@@ -41,14 +45,10 @@ describe 'User Stories' do
       expect { airport.take_off(plane) }.to raise_error 'Plane cannot take off; plane not at this airport'
     end
     it 'flying planes cannot take off' do
-      airport.land plane
-      flying_plane = airport.take_off(plane)
-      expect { flying_plane.take_off }.to raise_error 'Plane cannot take off; plane already flying'
+      expect { plane.take_off }.to raise_error 'Plane cannot take off; plane already flying'
     end
     it 'flying planes cannot be at an airport' do
-      airport.land plane
-      flying_plane = airport.take_off(plane)
-      expect { flying_plane.airport }.to raise_error 'Plane cannot be at airport; plane already flying'
+      expect { plane.airport }.to raise_error 'Plane cannot be at airport; plane already flying'
     end
     # As the system designer
     # So that the software can be used for many different airports
