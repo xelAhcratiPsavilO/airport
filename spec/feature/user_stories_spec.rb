@@ -50,6 +50,11 @@ describe 'User Stories' do
     it 'flying planes cannot be at an airport' do
       expect { plane.airport }.to raise_error 'Plane cannot be at airport; plane already flying'
     end
+    it 'airport removes plane that has taken off' do
+      airport.land plane
+      airport.take_off plane
+      expect(airport.planes).not_to include plane
+    end
     # As the system designer
     # So that the software can be used for many different airports
     # I would like a default airport capacity that can be overridden as appropriate

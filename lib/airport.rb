@@ -2,7 +2,7 @@ class Airport
 
   DEFAULT_CAPACITY = 30
 
-  attr_reader :capacity
+  attr_reader :capacity, :planes
 
   def initialize(capacity = DEFAULT_CAPACITY, weather_forecast)
     @capacity = capacity

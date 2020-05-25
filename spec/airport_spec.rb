@@ -81,4 +81,14 @@ describe Airport do
     end
   end
 
+  describe '#planes' do
+    before do
+      allow(weather_forecast).to receive(:stormy?).and_return false
+    end
+    it 'returns planes landed' do
+      airport.land plane
+      expect(airport.planes).to include plane
+    end
+  end
+
 end
