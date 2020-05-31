@@ -51,7 +51,7 @@ irb
 ```
 - Create a new Airport instance (similarly for any other class):
 ```bash
-> station = Airport.new
+> airpot = Airport.new
 => #<Airport:0x00007f8aee176d50>
 ```
 
